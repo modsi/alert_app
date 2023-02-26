@@ -48,7 +48,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('alert').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('alert')
+            .where('alertby', isEqualTo: box.read('email'))
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
